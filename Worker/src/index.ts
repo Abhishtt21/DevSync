@@ -14,7 +14,7 @@ async function processSubmission(submission: string) {
     const { roomId, code, language } = JSON.parse(submission);
     console.log(roomId, code, language);
 
-    const judge0Url = 'https://judge0.p.rapidapi.com/submissions?fields=*&base64_encoded=false&wait=true'
+    const judge0Url = 'https://judge0-ce.p.rapidapi.com/submissions?fields=*&base64_encoded=false&wait=true'
     const judge0Key = process.env.X_RAPID_API_KEY || ""
 
     const payload = {

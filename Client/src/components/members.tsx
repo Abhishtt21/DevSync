@@ -21,9 +21,10 @@ const Members: React.FC<MembersProps> = ({ users, roomId, onLeave }) => {
       flex="1"
       flexDirection="column"
       overflowY="auto"
-      justifyContent="top"
+      justifyContent="flex-start" // Align items from the top
       alignItems="center"
       gap="10px"
+      p={4} // Padding for better spacing
       css={{
         "&::-webkit-scrollbar": {
           display: "none"
@@ -35,20 +36,38 @@ const Members: React.FC<MembersProps> = ({ users, roomId, onLeave }) => {
       {users.map((user, index) => (
         <Box
           className="p-2 w-fit px-4 border rounded-sm"
-          borderColor="border-orange-400"
-          bg="bg-gray-800"
-          color="text-gray-800"
+          borderColor="orange.400" // Matched with the theme color
+          bg="gray.800"
+          color="gray.200" // Lighter color for text
           key={index}
+          fontSize="lg" // Slightly larger font for readability
+          fontWeight="medium" // Medium font weight for better emphasis
         >
           {user}
         </Box>
       ))}
     </Box>
-    <Box display="flex" flexDirection="column" gap="3" p="4" bg="bg-orange-500">
-      <Button onClick={copyRoomIdToClipboard} bg="bg-orange-500" color="text-gray-800" _hover={{ bg: "border-orange-400" }}>
+  
+    <Box display="flex" flexDirection="column" gap={3} p={4} bg="orange.500">
+      <Button
+        onClick={copyRoomIdToClipboard}
+        bg="orange.500"
+        color="gray.100"
+        _hover={{ bg: "orange.600" }} // Smooth hover transition
+        fontWeight="bold"
+        size="lg"
+        mb={2}
+      >
         Copy Room ID
       </Button>
-      <Button onClick={onLeave} bg="bg-red-500" color="text-gray-800" _hover={{ bg: "border-red-400" }}>
+      <Button
+        onClick={onLeave}
+        bg="red.500"
+        color="gray.100"
+        _hover={{ bg: "red.600" }}
+        fontWeight="bold"
+        size="lg"
+      >
         Leave Room
       </Button>
     </Box>

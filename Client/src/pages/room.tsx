@@ -196,157 +196,161 @@ const Room: React.FC = () => {
 
 
   return (
-    <Flex h="100vh" color="text-gray-800"> 
-    <Toaster /> 
-    {/* Left Sidebar for large screens */}
-    {isLargeScreen && (
-      <Flex direction="column" gap="30px" bg="bg-orange-500" w="20%" h="full">
-        <Box p="4">
-          <div className='text-4xl text-center text-blue-600'>Members</div>
-        </Box>
-        <Members users={users} onLeave={onLeave} roomId={roomId || ""} />
-      </Flex>
-    )}
-    {/* Left Sidebar Drawer */}
-    {!isLargeScreen && (
-      <Drawer placement="left" onClose={onLeftClose} isOpen={isLeftOpen}>
-        <DrawerOverlay />
-        <DrawerContent bg="bg-orange-500">
-          <DrawerCloseButton />
-          <DrawerHeader>
-            <div className='text-white text-4xl text-center'>Members</div>
-          </DrawerHeader>
-          <DrawerBody>
-            <Members users={users} onLeave={onLeave} roomId={roomId || ""} />
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
-    )}
-    {/* Main Content */}
-    <Flex direction="column" bg="bg-gray-100" flex="1" width={useBreakpointValue({ base: '100vh', md: '80vh', sm: '60vh' })}>
-      {/* Header Bar */}
-      <Flex bg="bg-gray-800" p="4" justify="center" align="center" position="relative" direction="column">
-        <Flex align="center" justify="center">
-          {result && (
-            <Button
-              onClick={() => setIsModalOpen(true)}
-              bg="bg-orange-500"
-              _hover={{ bg: 'border-orange-400' }}
-              color="text-gray-800"
-              fontWeight="semibold"
-              px="4"
-              py="2"
-              rounded="md"
-            >
-              Result
-            </Button>
-          )}
-          {result && (
-            <ResultModal
-              isOpen={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
-              resultMessage={result}
-            />
-          )}
-          <Select
-            value={language}
-            onChange={(e) => handleLangChange(e.target.value)}
-            bg="bg-orange-500"
-            color="text-gray-800"
-            borderBottom="1px"
-            borderColor="border-orange-400"
+    <Flex h="100vh" color="gray.800">
+  <Toaster />
+  
+  {/* Left Sidebar for large screens */}
+  {isLargeScreen && (
+    <Flex direction="column" gap="30px" bg="white.500" w="20%" h="full">
+      <Box p="4">
+        <div className='text-4xl text-center text-blue-600'>Members</div>
+      </Box>
+      <Members users={users} onLeave={onLeave} roomId={roomId || ""} />
+    </Flex>
+  )}
+
+  {/* Left Sidebar Drawer for small screens */}
+  {!isLargeScreen && (
+    <Drawer placement="left" onClose={onLeftClose} isOpen={isLeftOpen}>
+      <DrawerOverlay />
+      <DrawerContent bg="white.500">
+        <DrawerCloseButton />
+        <DrawerHeader>
+          <div className='text-white text-4xl text-center'>Members</div>
+        </DrawerHeader>
+        <DrawerBody>
+          <Members users={users} onLeave={onLeave} roomId={roomId || ""} />
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
+  )}
+
+  {/* Main Content */}
+  <Flex direction="column" bg="gray.100" flex="1" width="80%">
+    {/* Header Bar */}
+    <Flex bg="gray.200" p="4" justify="center" align="center" position="relative" direction="column">
+      <Flex align="center" justify="center" gap="4">
+        {result && (
+          <Button
+            onClick={() => setIsModalOpen(true)}
+            bg="orange.200"
+            _hover={{ bg: 'orange.400' }}
+            color="gray.800"
+            fontWeight="semibold"
+            px="4"
+            py="2"
             rounded="md"
-            px="2"
-            py="1"
           >
-            <option value="javascript">JavaScript</option>
-            <option value="java">Java</option>
-            <option value="cpp">Cpp</option>
-            <option value="python">Python</option>
-          </Select>
-          <>
-            {submitClicked ? (
-              <Spinner size="md" thickness="4px" speed="0.65s" emptyColor="bg-gray-100" color="bg-orange-500" />
-            ) : (
-              <Button
-                onClick={onSubmit}
-                bg="bg-orange-500"
-                _hover={{ bg: 'border-orange-400' }}
-                color="text-gray-800"
-                fontWeight="semibold"
-                px="4"
-                py="2"
-                rounded="md"
-              >
-                Submit
-              </Button>
-            )}
-          </>
-        </Flex>
-        <Flex align="center" justify="center">
-          <Box color="text-gray-800" fontWeight="semibold" ml="4">
-            {roomName}
-          </Box>
-        </Flex>
-        {/* Sidebar Icons */}
-        {!isLargeScreen && (
-          <>
-            <IconButton
-              icon={<HamburgerIcon />}
-              aria-label="Members"
-              display={{ base: 'block', md: 'none' }}
-              position="absolute"
-              left="4"
-              onClick={onLeftOpen}
-            />
-            <IconButton
-              icon={<ChatIcon />}
-              aria-label="Chats"
-              display={{ base: 'block', md: 'none' }}
-              position="absolute"
-              right="4"
-              onClick={onRightOpen}
-            />
-          </>
+            Result
+          </Button>
+        )}
+        {result && (
+          <ResultModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            resultMessage={result}
+          />
+        )}
+        <Select
+          value={language}
+          onChange={(e) => handleLangChange(e.target.value)}
+          bg="white.500"
+          color="gray.800"
+          borderBottom="1px"
+          borderColor="orange.400"
+          rounded="md"
+          px="2"
+          py="1"
+        >
+          <option value="javascript">JavaScript</option>
+          <option value="java">Java</option>
+          <option value="cpp">Cpp</option>
+          <option value="python">Python</option>
+        </Select>
+        {submitClicked ? (
+          <Spinner size="md" thickness="4px" speed="0.65s" emptyColor="gray.100" color="orange.500" />
+        ) : (
+          <Button
+            onClick={onSubmit}
+            bg="white.500"
+            _hover={{ bg: 'orange.200' }}
+            color="gray.800"
+            fontWeight="semibold"
+            px="4"
+            py="2"
+            rounded="md"
+          >
+            Submit
+          </Button>
         )}
       </Flex>
-      <Flex flex="1" p="2" align="center" justify="center">
-        {/* editor here */}
-        <CodeMirror
-          value={code}
-          onChange={(val) => handleCodeChange(val)}
-          height={useBreakpointValue({ base: '80vh', lg: '70vh', md: '60vh', sm: '50vh' })}
-          width={useBreakpointValue({ base: '100vh', lg: '90vh', md: '80vh', sm: '70vh' })}
-          extensions={[getLanguageExtension(language)]}
-          theme={"dark"}
-        />
-      </Flex>
+      <Box color="gray.800" fontWeight="semibold" mt="2">
+        {roomName}
+      </Box>
+
+      {/* Sidebar Icons */}
+      {!isLargeScreen && (
+        <>
+          <IconButton
+            icon={<HamburgerIcon />}
+            aria-label="Members"
+            display={{ base: 'block', md: 'none' }}
+            position="absolute"
+            left="4"
+            onClick={onLeftOpen}
+          />
+          <IconButton
+            icon={<ChatIcon />}
+            aria-label="Chats"
+            display={{ base: 'block', md: 'none' }}
+            position="absolute"
+            right="4"
+            onClick={onRightOpen}
+          />
+        </>
+      )}
     </Flex>
-    {/* Right Sidebar Drawer */}
-    {!isLargeScreen && (
-      <Drawer placement="right" onClose={onRightClose} isOpen={isRightOpen}>
-        <DrawerOverlay />
-        <DrawerContent bg="bg-orange-500">
-          <DrawerCloseButton />
-          <DrawerHeader>
-            <div className='text-white text-4xl text-center'>Chats</div>
-          </DrawerHeader>
-          <DrawerBody>
-            <Chats chats={chats} addChat={addChat} />
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
-    )}
-    {/* Right Sidebar for large screens */}
-    {isLargeScreen && (
-      <Flex direction="column" gap="30px" bg="bg-orange-500" w="20%" h="full">
-        <Box p="4">
-          <div className='text-4xl text-center text-blue-600'>Chats</div>
-        </Box>
-        <Chats chats={chats} addChat={addChat} />
-      </Flex>
-    )}
+
+    {/* Code Editor */}
+    <Flex flex="1" p="2" align="center" justify="center">
+      <CodeMirror
+        value={code}
+        onChange={(val) => handleCodeChange(val)}
+        height={useBreakpointValue({ base: '80vh', lg: '70vh', md: '60vh', sm: '50vh' })}
+        width={useBreakpointValue({ base: '100vh', lg: '90vh', md: '80vh', sm: '70vh' })}
+        extensions={[getLanguageExtension(language)]}
+        theme="dark"
+      />
+    </Flex>
   </Flex>
+
+  {/* Right Sidebar for large screens */}
+  {isLargeScreen && (
+    <Flex direction="column" gap="30px" bg="white.500" w="20%" h="full">
+      <Box p="4">
+        <div className='text-4xl text-center text-blue-600'>Chats</div>
+      </Box>
+      <Chats chats={chats} addChat={addChat} />
+    </Flex>
+  )}
+
+  {/* Right Sidebar Drawer for small screens */}
+  {!isLargeScreen && (
+    <Drawer placement="right" onClose={onRightClose} isOpen={isRightOpen}>
+      <DrawerOverlay />
+      <DrawerContent bg="white.500">
+        <DrawerCloseButton />
+        <DrawerHeader>
+          <div className='text-white text-4xl text-center'>Chats</div>
+        </DrawerHeader>
+        <DrawerBody>
+          <Chats chats={chats} addChat={addChat} />
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
+  )}
+</Flex>
+
   );
 }
 
